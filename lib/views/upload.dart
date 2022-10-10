@@ -50,7 +50,7 @@ class _UploadState extends State<Upload> {
   }
 
   Future<void> _pagingPhotos() async {
-    var photos = await albums.first.getAssetListPaged(page: 2, size: 100);
+    var photos = await albums.first.getAssetListPaged(page: 1, size: 100);
     imageList.addAll(photos);
 
     selectedImage = imageList.first;
