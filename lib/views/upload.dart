@@ -4,12 +4,61 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:yagdabang/controller/UploadContorller.dart';
 
 import 'new_board.dart';
 
 class Upload extends GetView<UploadController> {
   Upload({Key? key}) : super(key: key);
+class Upload extends StatefulWidget {
+  const Upload({Key? key}) : super(key: key);
+
+  @override
+  State<Upload> createState() => _UploadState();
+}
+
+class _UploadState extends State<Upload> {
+  var albums = <AssetPathEntity>[];
+  var headerTitle = "";
+  var imageList = <AssetEntity>[];
+  AssetEntity? selectedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPhotos();
+  }
+
+  _loadPhotos() async {
+    var result = await PhotoManager.requestPermissionExtend();
+    if (result.isAuth) {
+      albums = await PhotoManager.getAssetPathList(
+        type: RequestType.image,
+        filterOption: FilterOptionGroup(
+            imageOption: const FilterOption(
+              sizeConstraint: SizeConstraint(minWidth: 100, minHeight: 100),
+            ),
+            orders: [
+              const OrderOption(type: OrderOptionType.createDate, asc: false),
+            ]),
+      );
+      _loadData();
+    } else {}
+  }
+
+  void _loadData() async {
+    headerTitle = albums.first.name;
+    await _pagingPhotos();
+    update();
+  }
+
+  Future<void> _pagingPhotos() async {
+    var photos = await albums.first.getAssetListPaged(page: 1, size: 100);
+    imageList.addAll(photos);
+
+    selectedImage = imageList.first;
+  }
+
+  void update() => setState(() {});
 
   Widget _imagePreview() {
     var width = Get.width;
