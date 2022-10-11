@@ -4,76 +4,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:yagdabang/controller/UploadContorller.dart';
 
 import 'new_board.dart';
 
 class Upload extends GetView<UploadController> {
   Upload({Key? key}) : super(key: key);
-class Upload extends StatefulWidget {
-  const Upload({Key? key}) : super(key: key);
-
-  @override
-  State<Upload> createState() => _UploadState();
-}
-
-class _UploadState extends State<Upload> {
-  var albums = <AssetPathEntity>[];
-  var headerTitle = "";
-  var imageList = <AssetEntity>[];
-  AssetEntity? selectedImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPhotos();
-  }
-
-  _loadPhotos() async {
-    var result = await PhotoManager.requestPermissionExtend();
-    if (result.isAuth) {
-      albums = await PhotoManager.getAssetPathList(
-        type: RequestType.image,
-        filterOption: FilterOptionGroup(
-            imageOption: const FilterOption(
-              sizeConstraint: SizeConstraint(minWidth: 100, minHeight: 100),
-            ),
-            orders: [
-              const OrderOption(type: OrderOptionType.createDate, asc: false),
-            ]),
-      );
-      _loadData();
-    } else {}
-  }
-
-  void _loadData() async {
-    headerTitle = albums.first.name;
-    await _pagingPhotos();
-    update();
-  }
-
-  Future<void> _pagingPhotos() async {
-    var photos = await albums.first.getAssetListPaged(page: 1, size: 100);
-    imageList.addAll(photos);
-
-    selectedImage = imageList.first;
-  }
-
-  void update() => setState(() {});
 
   Widget _imagePreview() {
     var width = Get.width;
     return Obx(
-      () => Container(
+          () => Container(
         width: width,
         height: width,
         color: Colors.grey,
         child: _photoWidget(controller.selectedImage.value, width.toInt(),
             builder: (data) {
-          return Image.memory(
-            data,
-            fit: BoxFit.cover,
-          );
-        }),
+              return Image.memory(
+                data,
+                fit: BoxFit.cover,
+              );
+            }),
       ),
     );
   }
@@ -94,7 +45,7 @@ class _UploadState extends State<Upload> {
                       topRight: Radius.circular(20)),
                 ),
                 isScrollControlled:
-                    controller.albums.length > 10 ? true : false,
+                controller.albums.length > 10 ? true : false,
                 constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(Get.context!).size.height -
                         MediaQuery.of(Get.context!).padding.top),
@@ -105,19 +56,19 @@ class _UploadState extends State<Upload> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: List.generate(
                           controller.albums.length,
-                          (index) => GestureDetector(
-                                onTap: () {
-                                  controller
-                                      .changeAlbum(controller.albums[index]);
-                                },
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20),
-                                    child: Text(controller.albums[index].name),
-                                  ),
-                                ),
-                              )),
+                              (index) => GestureDetector(
+                            onTap: () {
+                              controller
+                                  .changeAlbum(controller.albums[index]);
+                            },
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
+                                child: Text(controller.albums[index].name),
+                              ),
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -128,7 +79,7 @@ class _UploadState extends State<Upload> {
               child: Row(
                 children: [
                   Obx(
-                    () => Text(
+                        () => Text(
                       controller.headerTitle.value,
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                     ),
@@ -145,9 +96,9 @@ class _UploadState extends State<Upload> {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                BoxDecoration(borderRadius: BorderRadius.circular(30)),
                 child: Row(
                   children: const [
                     Icon(Icons.check_outlined),
@@ -171,7 +122,7 @@ class _UploadState extends State<Upload> {
 
   Widget _imageSelectList() {
     return Obx(
-      () => GridView.builder(
+          () => GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -183,25 +134,25 @@ class _UploadState extends State<Upload> {
           itemBuilder: (BuildContext context, int index) {
             return _photoWidget(controller.imageList[index], 200,
                 builder: (data) {
-              return GestureDetector(
-                onTap: () {
-                  controller.changeSelectedImage(controller.imageList[index]);
-                  // update();
-                },
-                child: Obx(
-                  () => Opacity(
-                    opacity: controller.imageList[index] ==
+                  return GestureDetector(
+                    onTap: () {
+                      controller.changeSelectedImage(controller.imageList[index]);
+                      // update();
+                    },
+                    child: Obx(
+                          () => Opacity(
+                        opacity: controller.imageList[index] ==
                             controller.selectedImage.value
-                        ? 0.3
-                        : 1,
-                    child: Image.memory(
-                      data,
-                      fit: BoxFit.cover,
+                            ? 0.3
+                            : 1,
+                        child: Image.memory(
+                          data,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            });
+                  );
+                });
           }),
     );
   }

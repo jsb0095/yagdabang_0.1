@@ -16,7 +16,7 @@ class AvatarWidget extends StatelessWidget {
       required this.thumPath,
       this.nickname,
       required this.type,
-      this.size})
+      this.size, })
       : super();
 
   Widget type1Widget() {
