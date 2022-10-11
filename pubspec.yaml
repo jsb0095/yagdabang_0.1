@@ -39,6 +39,9 @@ dependencies:
   circle_chart:
   photo_manager:
   cached_network_image:
+  photofilters:
+  image_picker:
+  expandable_text:
 
 dev_dependencies:
   flutter_test:

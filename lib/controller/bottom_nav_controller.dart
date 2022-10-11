@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../views/upload.dart';
 import '../components/messgae_pop_up.dart';
+import 'UploadContorller.dart';
 
 enum PageName { home, search, add, drug, myPage }
 
@@ -20,7 +21,9 @@ class BottomNavController extends GetxController {
         _changePage(value);
         break;
       case PageName.add:
-        Get.to(Upload());
+        Get.to(() => Upload(), binding: BindingsBuilder(() {
+          Get.put(UploadController());
+        }));
         break;
       case PageName.drug:
         _changePage(value);
@@ -46,7 +49,6 @@ class BottomNavController extends GetxController {
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopUp(
-                title: "약다방",
                 message: "종료하시겠습니까?",
                 ok: () {
                   exit(0);

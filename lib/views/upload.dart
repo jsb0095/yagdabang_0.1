@@ -4,74 +4,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:yagdabang/controller/UploadContorller.dart';
 
 import 'new_board.dart';
 
-class Upload extends StatefulWidget {
-  const Upload({Key? key}) : super(key: key);
-
-  @override
-  State<Upload> createState() => _UploadState();
-}
-
-class _UploadState extends State<Upload> {
-  var albums = <AssetPathEntity>[];
-  var headerTitle = "";
-  var imageList = <AssetEntity>[];
-  AssetEntity? selectedImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPhotos();
-  }
-
-  _loadPhotos() async {
-    var result = await PhotoManager.requestPermissionExtend();
-    if (result.isAuth) {
-      albums = await PhotoManager.getAssetPathList(
-        type: RequestType.image,
-        filterOption: FilterOptionGroup(
-            imageOption: const FilterOption(
-              sizeConstraint: SizeConstraint(minWidth: 100, minHeight: 100),
-            ),
-            orders: [
-              const OrderOption(type: OrderOptionType.createDate, asc: false),
-            ]),
-      );
-      _loadData();
-    } else {}
-  }
-
-  void _loadData() async {
-    headerTitle = albums.first.name;
-    await _pagingPhotos();
-    update();
-  }
-
-  Future<void> _pagingPhotos() async {
-    var photos = await albums.first.getAssetListPaged(page: 1, size: 100);
-    imageList.addAll(photos);
-
-    selectedImage = imageList.first;
-  }
-
-  void update() => setState(() {});
+class Upload extends GetView<UploadController> {
+  Upload({Key? key}) : super(key: key);
 
   Widget _imagePreview() {
-    var width = MediaQuery.of(context).size.width;
-    return Container(
-      width: width,
-      height: width,
-      color: Colors.grey,
-      child: selectedImage == null
-          ? Container()
-          : _photoWidget(selectedImage!, width.toInt(), builder: (data) {
-              return Image.memory(
-                data,
-                fit: BoxFit.cover,
-              );
-            }),
+    var width = Get.width;
+    return Obx(
+      () => Container(
+        width: width,
+        height: width,
+        color: Colors.grey,
+        child: _photoWidget(controller.selectedImage.value, width.toInt(),
+            builder: (data) {
+          return Image.memory(
+            data,
+            fit: BoxFit.cover,
+          );
+        }),
+      ),
     );
   }
 
@@ -84,28 +38,35 @@ class _UploadState extends State<Upload> {
           GestureDetector(
             onTap: () {
               showModalBottomSheet(
-                context: context,
+                context: Get.context!,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                 ),
-                isScrollControlled: albums.length > 10 ? true : false,
+                isScrollControlled:
+                    controller.albums.length > 10 ? true : false,
                 constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.top),
+                    maxHeight: MediaQuery.of(Get.context!).size.height -
+                        MediaQuery.of(Get.context!).padding.top),
                 builder: (_) => Container(
                   height: 200,
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: List.generate(
-                          albums.length,
-                          (index) => Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 20),
-                                  child: Text(albums[index].name),
+                          controller.albums.length,
+                          (index) => GestureDetector(
+                                onTap: () {
+                                  controller
+                                      .changeAlbum(controller.albums[index]);
+                                },
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20),
+                                    child: Text(controller.albums[index].name),
+                                  ),
                                 ),
                               )),
                     ),
@@ -117,9 +78,11 @@ class _UploadState extends State<Upload> {
               padding: const EdgeInsets.all(5.0),
               child: Row(
                 children: [
-                  Text(
-                    headerTitle,
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                  Obx(
+                    () => Text(
+                      controller.headerTitle.value,
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
+                    ),
                   ),
                   const Icon(
                     Icons.arrow_drop_down,
@@ -158,32 +121,40 @@ class _UploadState extends State<Upload> {
   }
 
   Widget _imageSelectList() {
-    return GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 1,
-            childAspectRatio: 1),
-        itemCount: imageList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _photoWidget(imageList[index], 200, builder: (data) {
-            return GestureDetector(
-              onTap: () {
-                selectedImage = imageList[index];
-                update();
-              },
-              child: Opacity(
-                opacity: imageList[index] == selectedImage ? 0.3 : 1,
-                child: Image.memory(
-                  data,
-                  fit: BoxFit.cover,
+    return Obx(
+      () => GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              mainAxisSpacing: 1,
+              crossAxisSpacing: 1,
+              childAspectRatio: 1),
+          itemCount: controller.imageList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _photoWidget(controller.imageList[index], 200,
+                builder: (data) {
+              return GestureDetector(
+                onTap: () {
+                  controller.changeSelectedImage(controller.imageList[index]);
+                  // update();
+                },
+                child: Obx(
+                  () => Opacity(
+                    opacity: controller.imageList[index] ==
+                            controller.selectedImage.value
+                        ? 0.3
+                        : 1,
+                    child: Image.memory(
+                      data,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
-            );
-          });
-        });
+              );
+            });
+          }),
+    );
   }
 
   Widget _photoWidget(AssetEntity assetEntity, int size,
@@ -211,19 +182,18 @@ class _UploadState extends State<Upload> {
               fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_forward,
-                  color: Colors.black,
-                ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: IconButton(
+              onPressed: () {
+                controller.gotoImageFilter();
+              },
+              icon: const Icon(
+                Icons.arrow_forward,
+                color: Colors.black,
               ),
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
