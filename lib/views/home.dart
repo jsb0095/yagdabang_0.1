@@ -67,38 +67,6 @@ class Home extends StatelessWidget {
               ),
             ],
           )
-
-          // Row(
-          //   children: const [
-          //     Icon(
-          //       Icons.monetization_on,
-          //       color: Colors.yellow,
-          //     ),
-          //     Text(" 보유포인트: 500P"),
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // Row(
-          //   children: [
-          //     const Icon(Icons.check_circle_rounded, color: Colors.green),
-          //     const Text(" 복약 달성률:"),
-          //   ],
-          // ),
-          // LinearPercentIndicator(
-          //   barRadius: const Radius.circular(30),
-          //   width: 360,
-          //   animation: true,
-          //   lineHeight: 17.0,
-          //   animationDuration: 2000,
-          //   percent: 0.9,
-          //   center: const Text(
-          //     "90.0%",
-          //     style: TextStyle(fontSize: 15),
-          //   ),
-          //   progressColor: Colors.green,
-          // ),
         ],
       ),
     );
