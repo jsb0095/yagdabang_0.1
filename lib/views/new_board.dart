@@ -92,9 +92,7 @@ class NewBoard extends GetView<UploadController> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {
-              // controller.uplaodPost;
-            },
+            onTap: () {},
             child: const Padding(
               padding: EdgeInsets.all(15),
               child: Icon(

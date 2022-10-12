@@ -14,16 +14,13 @@ class PostWidget extends StatelessWidget {
         children: [
           AvatarWidget(
               type: AvatarType.type3,
-              nickname:"닉넥임",
-              size: 40,
-            thumPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyjpDDQXk2BEHOJkVJIPgXBIks8YhE1F0w3w&usqp=CAU"),
+              nickname: "아프지마",
+              size: 25,
+              thumPath:
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyjpDDQXk2BEHOJkVJIPgXBIks8YhE1F0w3w&usqp=CAU"),
           GestureDetector(
             onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.add
-              ),
-            ),
+            child: Icon(Icons.manage_search),
           )
         ],
       ),
@@ -31,17 +28,36 @@ class PostWidget extends StatelessWidget {
   }
 
   Widget _image() {
-    return CachedNetworkImage(imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTijGyGn6-XI5h167cY5SfjsLTcAgMuyhWmAg&usqp=CAU");
+    return CachedNetworkImage(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTijGyGn6-XI5h167cY5SfjsLTcAgMuyhWmAg&usqp=CAU",
+      fit: BoxFit.cover,
+    );
   }
 
   Widget _infoCount() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Row(
         children: [
-            Icon(Icons.favorite_outlined),
-            Icon(Icons.favorite_outlined),
-            Icon(Icons.favorite_outlined),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.favorite,
+                color: Colors.red,
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.maps_ugc,
+                color: Colors.yellow,
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.near_me,
+                color: Colors.black,
+              )),
         ],
       ),
     );
@@ -53,13 +69,13 @@ class PostWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          const Text(
             '좋아요 15개',
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-
           ExpandableText(
-           '콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n',expanded: false,
+            '콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n',
+            expanded: false,
             onPrefixTap: () {
               print('개발하는남자 페이지 이동');
             },
@@ -90,12 +106,13 @@ class PostWidget extends StatelessWidget {
   }
 
   Widget _dateAgo() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      child: Text("몇일전",  style: const TextStyle(color: Colors.grey, fontSize: 11),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: Text(
+        "몇일전",
+        style: TextStyle(color: Colors.grey, fontSize: 11),
       ),
-      );
-
+    );
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:yagdabang/views/login_pages/login_page.dart';
 
 import 'views/app.dart';
 import 'binding/init_bindings.dart';
@@ -26,6 +27,6 @@ class MyApp extends StatelessWidget {
               titleTextStyle: TextStyle(color: Colors.black)),
         ),
         initialBinding: InitBinding(),
-        home: const App());
+        home: const LoginPage());
   }
 }

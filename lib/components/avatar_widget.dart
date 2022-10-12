@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 enum AvatarType { type1, type2, type3 }
 
@@ -10,19 +11,19 @@ class AvatarWidget extends StatelessWidget {
   AvatarType type;
   double? size;
 
-  AvatarWidget(
-      {Key? key,
-      this.history,
-      required this.thumPath,
-      this.nickname,
-      required this.type,
-      this.size, })
-      : super();
+  AvatarWidget({
+    Key? key,
+    this.history,
+    required this.thumPath,
+    this.nickname,
+    required this.type,
+    this.size,
+  }) : super();
 
   Widget type1Widget() {
     return Container(
-      width: 70,
-      height: 70,
+      width: 30,
+      height: 30,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -48,17 +49,52 @@ class AvatarWidget extends StatelessWidget {
     );
   }
 
+  Widget type2Widget() {
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: CupertinoColors.white,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size!),
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: CachedNetworkImage(
+            imageUrl: thumPath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget type3Widget() {
+    return Row(
+      children: [
+        type1Widget(),
+        Text(
+          nickname ?? '',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (type) {
       case AvatarType.type1:
         return type1Widget();
-        break;
       case AvatarType.type2:
+        return type2Widget();
       case AvatarType.type3:
-        return Container();
-        break;
+        return type3Widget();
     }
-    return Container();
   }
 }
