@@ -44,7 +44,7 @@ dependencies:
   expandable_text:
   percent_indicator:
   flutter_naver_login:
-  kakao_flutter_sdk:
+  http:
 
 
 dev_dependencies:

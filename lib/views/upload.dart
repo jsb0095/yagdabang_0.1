@@ -14,17 +14,17 @@ class Upload extends GetView<UploadController> {
   Widget _imagePreview() {
     var width = Get.width;
     return Obx(
-          () => Container(
+      () => Container(
         width: width,
         height: width,
         color: Colors.grey,
         child: _photoWidget(controller.selectedImage.value, width.toInt(),
             builder: (data) {
-              return Image.memory(
-                data,
-                fit: BoxFit.cover,
-              );
-            }),
+          return Image.memory(
+            data,
+            fit: BoxFit.cover,
+          );
+        }),
       ),
     );
   }
@@ -45,7 +45,7 @@ class Upload extends GetView<UploadController> {
                       topRight: Radius.circular(20)),
                 ),
                 isScrollControlled:
-                controller.albums.length > 10 ? true : false,
+                    controller.albums.length > 10 ? true : false,
                 constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(Get.context!).size.height -
                         MediaQuery.of(Get.context!).padding.top),
@@ -56,19 +56,19 @@ class Upload extends GetView<UploadController> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: List.generate(
                           controller.albums.length,
-                              (index) => GestureDetector(
-                            onTap: () {
-                              controller
-                                  .changeAlbum(controller.albums[index]);
-                            },
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 20),
-                                child: Text(controller.albums[index].name),
-                              ),
-                            ),
-                          )),
+                          (index) => GestureDetector(
+                                onTap: () {
+                                  controller
+                                      .changeAlbum(controller.albums[index]);
+                                },
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20),
+                                    child: Text(controller.albums[index].name),
+                                  ),
+                                ),
+                              )),
                     ),
                   ),
                 ),
@@ -79,7 +79,7 @@ class Upload extends GetView<UploadController> {
               child: Row(
                 children: [
                   Obx(
-                        () => Text(
+                    () => Text(
                       controller.headerTitle.value,
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                     ),
@@ -96,9 +96,9 @@ class Upload extends GetView<UploadController> {
             children: [
               Container(
                 padding:
-                const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
                 child: Row(
                   children: const [
                     Icon(Icons.check_outlined),
@@ -122,7 +122,7 @@ class Upload extends GetView<UploadController> {
 
   Widget _imageSelectList() {
     return Obx(
-          () => GridView.builder(
+      () => GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -134,25 +134,25 @@ class Upload extends GetView<UploadController> {
           itemBuilder: (BuildContext context, int index) {
             return _photoWidget(controller.imageList[index], 200,
                 builder: (data) {
-                  return GestureDetector(
-                    onTap: () {
-                      controller.changeSelectedImage(controller.imageList[index]);
-                      // update();
-                    },
-                    child: Obx(
-                          () => Opacity(
-                        opacity: controller.imageList[index] ==
+              return GestureDetector(
+                onTap: () {
+                  controller.changeSelectedImage(controller.imageList[index]);
+                  // update();
+                },
+                child: Obx(
+                  () => Opacity(
+                    opacity: controller.imageList[index] ==
                             controller.selectedImage.value
-                            ? 0.3
-                            : 1,
-                        child: Image.memory(
-                          data,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                        ? 0.3
+                        : 1,
+                    child: Image.memory(
+                      data,
+                      fit: BoxFit.cover,
                     ),
-                  );
-                });
+                  ),
+                ),
+              );
+            });
           }),
     );
   }
@@ -176,6 +176,14 @@ class Upload extends GetView<UploadController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
         title: const Text(
           "사진",
           style: TextStyle(
@@ -189,8 +197,8 @@ class Upload extends GetView<UploadController> {
                 controller.gotoImageFilter();
               },
               icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
+                Icons.check,
+                color: Colors.green,
               ),
             ),
           ),

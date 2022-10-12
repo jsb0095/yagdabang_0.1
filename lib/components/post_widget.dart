@@ -76,9 +76,7 @@ class PostWidget extends StatelessWidget {
           ExpandableText(
             '콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n콘텐츠\n',
             expanded: false,
-            onPrefixTap: () {
-              print('개발하는남자 페이지 이동');
-            },
+            onPrefixTap: () {},
             prefixStyle: const TextStyle(fontWeight: FontWeight.bold),
             expandText: '더보기',
             collapseText: '접기',

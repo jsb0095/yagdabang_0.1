@@ -45,10 +45,11 @@ class BottomNavController extends GetxController {
   }
 
   Future<bool> willPopAction() async {
-    if (bottomHistory.length == 1) {
+    if (bottomHistory.length == 1 && bottomHistory.length > 1) {
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopUp(
+                title: "약다방",
                 message: "종료하시겠습니까?",
                 ok: () {
                   exit(0);

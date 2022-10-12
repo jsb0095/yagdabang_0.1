@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:yagdabang/components/avatar_widget.dart';
 import 'package:yagdabang/components/post_widget.dart';
 
@@ -26,35 +26,79 @@ class Home extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(
-                Icons.monetization_on,
-                color: Colors.yellow,
+              CircularPercentIndicator(
+                radius: 30.0,
+                lineWidth: 5.0,
+                percent: 1.0,
+                center: new Text("500P"),
+                progressColor: Colors.yellow,
               ),
-              Text(" 보유포인트: 500P"),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Icon(Icons.check_circle_rounded, color: Colors.green),
-              Text(" 복약 달성률:"),
-              LinearPercentIndicator(
-                barRadius: Radius.circular(30),
-                width: 150,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 2000,
-                percent: 0.9,
-                center: Text(
-                  "90.0%",
-                  style: TextStyle(fontSize: 15),
-                ),
+              SizedBox(
+                width: 20,
+              ),
+              CircularPercentIndicator(
+                radius: 30.0,
+                lineWidth: 5.0,
+                percent: 0.5,
+                center: new Text("50%"),
                 progressColor: Colors.green,
               ),
+              SizedBox(
+                width: 20,
+              ),
+              FloatingActionButton(
+                onPressed: () {},
+                child: Text("그륩1"),
+                backgroundColor: Colors.grey,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              FloatingActionButton(
+                onPressed: () {},
+                child: Text("그륩2"),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              FloatingActionButton(
+                onPressed: () {},
+                child: Text("그륩3"),
+              ),
             ],
-          ),
+          )
+
+          // Row(
+          //   children: const [
+          //     Icon(
+          //       Icons.monetization_on,
+          //       color: Colors.yellow,
+          //     ),
+          //     Text(" 보유포인트: 500P"),
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Row(
+          //   children: [
+          //     const Icon(Icons.check_circle_rounded, color: Colors.green),
+          //     const Text(" 복약 달성률:"),
+          //   ],
+          // ),
+          // LinearPercentIndicator(
+          //   barRadius: const Radius.circular(30),
+          //   width: 360,
+          //   animation: true,
+          //   lineHeight: 17.0,
+          //   animationDuration: 2000,
+          //   percent: 0.9,
+          //   center: const Text(
+          //     "90.0%",
+          //     style: TextStyle(fontSize: 15),
+          //   ),
+          //   progressColor: Colors.green,
+          // ),
         ],
       ),
     );
@@ -80,7 +124,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(
+        title: const Text(
           "약다방",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),

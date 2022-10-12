@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yagdabang/service/board_service.dart';
+import 'package:yagdabang/service/file_service.dart';
+import 'package:yagdabang/views/home.dart';
 
 import '../controller/UploadContorller.dart';
 
 class NewBoard extends GetView<UploadController> {
-  const NewBoard({Key? key}) : super(key: key);
+  NewBoard({Key? key}) : super(key: key);
+  // BoardService boardService = BoardService();
 
   Widget _description() {
     return Row(
@@ -92,12 +96,18 @@ class NewBoard extends GetView<UploadController> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () async {
+              String fileName =
+                  await saveImageToLocalDirectory(controller.filteredImage!);
+              // boardService.save(
+              //     fileName, controller.textEditingController.text);
+              // Get.to(Home());
+            },
             child: const Padding(
               padding: EdgeInsets.all(15),
               child: Icon(
                 Icons.check,
-                color: Colors.blueAccent,
+                color: Colors.green,
               ),
             ),
           )

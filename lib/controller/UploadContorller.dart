@@ -79,7 +79,7 @@ class UploadController extends GetxController {
     );
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       filteredImage = imagefile['image_filtered'];
-      Get.to(() => const NewBoard());
+      Get.to(() => NewBoard());
     }
   }
 
