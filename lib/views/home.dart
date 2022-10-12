@@ -24,48 +24,64 @@ class Home extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              CircularPercentIndicator(
-                radius: 30.0,
-                lineWidth: 5.0,
-                percent: 1.0,
-                center: new Text("500P"),
-                progressColor: Colors.yellow,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              CircularPercentIndicator(
-                radius: 30.0,
-                lineWidth: 5.0,
-                percent: 0.5,
-                center: new Text("50%"),
-                progressColor: Colors.green,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              FloatingActionButton(
-                onPressed: () {},
-                child: Text("그륩1"),
-                backgroundColor: Colors.grey,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              FloatingActionButton(
-                onPressed: () {},
-                child: Text("그륩2"),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              FloatingActionButton(
-                onPressed: () {},
-                child: Text("그륩3"),
-              ),
-            ],
+          SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircularPercentIndicator(
+                  radius: 30.0,
+                  lineWidth: 5.0,
+                  percent: 1.0,
+                  center: new Text("500P"),
+                  progressColor: Colors.yellow,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                CircularPercentIndicator(
+                  radius: 30.0,
+                  lineWidth: 5.0,
+                  percent: 0.5,
+                  center: new Text("50%"),
+                  progressColor: Colors.green,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: Text("그륩1"),
+                  backgroundColor: Colors.grey,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: Text("그륩2"),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: Text("그륩3"),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  child: Text("그륩4"),
+                ),
+                SizedBox(
+                  width: 20,
+                ),FloatingActionButton(
+                  onPressed: () {},
+                  child: Text("그륩5"),
+                )
+              ],
+            ),
           )
         ],
       ),
