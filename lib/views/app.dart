@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yagdabang/views/mypage.dart';
 import 'package:yagdabang/views/search.dart';
 
 import '../controller/bottom_nav_controller.dart';
@@ -18,12 +19,11 @@ class App extends GetView<BottomNavController> {
             body: IndexedStack(
               index: controller.pageIndex.value,
               children: [
-                 const Home(),
+                const Home(),
                 const Search(),
-                Container(child: Center(child: Text("검색"))),
                 Container(child: Center(child: Text("추가"))),
                 Container(child: Center(child: Text("복약"))),
-                Container(child: Center(child: Text("마이"))),
+                const MyPage(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

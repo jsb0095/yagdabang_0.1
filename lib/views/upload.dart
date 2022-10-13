@@ -9,7 +9,7 @@ import 'package:yagdabang/controller/UploadContorller.dart';
 import 'new_board.dart';
 
 class Upload extends GetView<UploadController> {
-  Upload({Key? key}) : super(key: key);
+  const Upload({Key? key}) : super(key: key);
 
   Widget _imagePreview() {
     var width = Get.width;
@@ -50,25 +50,30 @@ class Upload extends GetView<UploadController> {
                     maxHeight: MediaQuery.of(Get.context!).size.height -
                         MediaQuery.of(Get.context!).padding.top),
                 builder: (_) => Container(
-                  height: 200,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: List.generate(
-                          controller.albums.length,
-                          (index) => GestureDetector(
-                                onTap: () {
-                                  controller
-                                      .changeAlbum(controller.albums[index]);
-                                },
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20),
-                                    child: Text(controller.albums[index].name),
+                  height: controller.albums.length > 10
+                      ? Size.infinite.height
+                      : controller.albums.length * 60,
+                  child: Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: List.generate(
+                            controller.albums.length,
+                            (index) => GestureDetector(
+                                  onTap: () {
+                                    controller
+                                        .changeAlbum(controller.albums[index]);
+                                  },
+                                  child: Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 20),
+                                      child:
+                                          Text(controller.albums[index].name),
+                                    ),
                                   ),
-                                ),
-                              )),
+                                )),
+                      ),
                     ),
                   ),
                 ),

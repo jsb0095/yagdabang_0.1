@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AvatarWidget(
-            type: AvatarType.type3,
-            thumPath:
+            type: AvatarType.TYPE3,
+            thumbPath:
                 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/6057684e5923ad2ae43c8150_bavassano_homepage_before.jpg',
             size: 20,
             nickname: "약다방운영자",
@@ -32,53 +32,59 @@ class Home extends StatelessWidget {
                   radius: 30.0,
                   lineWidth: 5.0,
                   percent: 1.0,
-                  center: new Text("500P"),
+                  center: Text("500P"),
                   progressColor: Colors.yellow,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 CircularPercentIndicator(
                   radius: 30.0,
                   lineWidth: 5.0,
-                  percent: 0.5,
-                  center: new Text("50%"),
+                  percent: 0.7,
+                  center: Text("70%"),
                   progressColor: Colors.green,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 FloatingActionButton(
+                  heroTag: "그륩1",
                   onPressed: () {},
-                  child: Text("그륩1"),
+                  child: Text("고혈압"),
                   backgroundColor: Colors.grey,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 FloatingActionButton(
+                  heroTag: "그륩2",
                   onPressed: () {},
-                  child: Text("그륩2"),
+                  child: Text("대장암"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 FloatingActionButton(
+                  heroTag: "그륩3",
                   onPressed: () {},
-                  child: Text("그륩3"),
+                  child: Text("백혈병"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 FloatingActionButton(
+                  heroTag: "그륩4",
                   onPressed: () {},
-                  child: Text("그륩4"),
+                  child: Text("혈우병"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
-                ),FloatingActionButton(
+                ),
+                FloatingActionButton(
+                  heroTag: "그륩5",
                   onPressed: () {},
-                  child: Text("그륩5"),
+                  child: Text("희귀병"),
                 )
               ],
             ),

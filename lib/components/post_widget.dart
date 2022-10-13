@@ -13,10 +13,10 @@ class PostWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AvatarWidget(
-              type: AvatarType.type3,
+              type: AvatarType.TYPE3,
               nickname: "아프지마",
               size: 25,
-              thumPath:
+              thumbPath:
                   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyjpDDQXk2BEHOJkVJIPgXBIks8YhE1F0w3w&usqp=CAU"),
           GestureDetector(
             onTap: () {},

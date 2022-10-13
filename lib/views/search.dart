@@ -22,7 +22,7 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     for (var i = 0; i < 100; i++) {
-      var gi =   groupIndex.indexOf(min<int>(groupIndex)!);
+      var gi = groupIndex.indexOf(min<int>(groupIndex)!);
       var size = 1;
       if (gi != 1) {
         size = Random().nextInt(100) % 2 == 0 ? 1 : 2;

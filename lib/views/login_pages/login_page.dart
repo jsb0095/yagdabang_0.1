@@ -174,23 +174,23 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
               child: TextButton(
                 onPressed: () async {
-                  // // Future<int> result = _memberService.loginCheck(
-                  // //     mailController.text, passwordController.text);
-                  // if (await result == 201) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const App()));
-                  // } else {
-                  //   showDialog(
-                  //     context: context,
-                  //     builder: (_) => AlertDialog(
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //       ),
-                  //       title: const Text("로그인오류"),
-                  //       content: const Text("아이디 또는 비밀번호가 일치하지 않습니다"),
-                  //     ),
-                  //   );
-                  // }
+                  Future<int> result = _memberService.loginCheck(
+                      mailController.text, passwordController.text);
+                  if (await result == 201) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const App()));
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        title: const Text("로그인오류"),
+                        content: const Text("아이디 또는 비밀번호가 일치하지 않습니다"),
+                      ),
+                    );
+                  }
                 },
                 child: Text(
                   '로그인',

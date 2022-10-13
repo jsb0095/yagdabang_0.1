@@ -8,6 +8,17 @@ import 'package:yagdabang/views/home.dart';
 import '../controller/UploadContorller.dart';
 
 class NewBoard extends GetView<UploadController> {
+  RxBool on1 = false.obs;
+  RxBool on2 = false.obs;
+  RxBool on3 = false.obs;
+  RxBool on4 = false.obs;
+  RxBool on5 = false.obs;
+  void toggle1() => on1.value = on1.value ? false : true;
+  void toggle2() => on2.value = on2.value ? false : true;
+  void toggle3() => on3.value = on3.value ? false : true;
+  void toggle4() => on4.value = on4.value ? false : true;
+  void toggle5() => on5.value = on5.value ? false : true;
+
   NewBoard({Key? key}) : super(key: key);
   // BoardService boardService = BoardService();
 
@@ -53,6 +64,9 @@ class NewBoard extends GetView<UploadController> {
         color: Colors.grey,
       );
   Widget snsInfo() {
+    NewBoard sx =
+        Get.put(NewBoard()); // Instantiate Get Controller, *in* build()
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -60,15 +74,51 @@ class NewBoard extends GetView<UploadController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Facebook", style: TextStyle(fontSize: 17)),
-              Switch(value: false, onChanged: (bool value) {}),
+              const Text("고혈압", style: TextStyle(fontSize: 17)),
+              Obx(
+                () => Switch(
+                    onChanged: (val) => sx.toggle1(), value: sx.on1.value),
+              )
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Twitter", style: TextStyle(fontSize: 17)),
-              Switch(value: false, onChanged: (bool value) {}),
+              const Text("대장암", style: TextStyle(fontSize: 17)),
+              Obx(
+                () => Switch(
+                    onChanged: (val) => sx.toggle2(), value: sx.on2.value),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("백혈병", style: TextStyle(fontSize: 17)),
+              Obx(
+                () => Switch(
+                    onChanged: (val) => sx.toggle3(), value: sx.on3.value),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("혈우병", style: TextStyle(fontSize: 17)),
+              Obx(
+                () => Switch(
+                    onChanged: (val) => sx.toggle4(), value: sx.on4.value),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("희귀병", style: TextStyle(fontSize: 17)),
+              Obx(
+                () => Switch(
+                    onChanged: (val) => sx.toggle5(), value: sx.on5.value),
+              )
             ],
           ),
         ],
@@ -130,11 +180,7 @@ class NewBoard extends GetView<UploadController> {
                   children: [
                     _description(),
                     line,
-                    infoOnt("사람태그하기"),
-                    line,
-                    infoOnt("위치추가"),
-                    line,
-                    infoOnt("다른 미디어에서도 게시"),
+                    infoOnt("구독중인 카페"),
                     snsInfo(),
                   ],
                 ),
