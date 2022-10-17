@@ -13,7 +13,6 @@ class App extends GetView<BottomNavController> {
   const App({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(UploadController());
     return WillPopScope(
         onWillPop: controller.willPopAction,
         child: Obx(
