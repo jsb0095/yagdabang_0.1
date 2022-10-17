@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yagdabang/controller/UploadContorller.dart';
 import 'package:yagdabang/views/mypage.dart';
 import 'package:yagdabang/views/search.dart';
+import 'package:yagdabang/views/upload.dart';
 
 import '../controller/bottom_nav_controller.dart';
 import 'home.dart';
 
 class App extends GetView<BottomNavController> {
   const App({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    Get.put(UploadController());
     return WillPopScope(
         onWillPop: controller.willPopAction,
         child: Obx(
@@ -21,7 +23,7 @@ class App extends GetView<BottomNavController> {
               children: [
                 const Home(),
                 const Search(),
-                Container(child: Center(child: Text("추가"))),
+                const Upload(),
                 Container(child: Center(child: Text("복약"))),
                 const MyPage(),
               ],

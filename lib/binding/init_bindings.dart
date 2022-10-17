@@ -9,8 +9,4 @@ class InitBinding extends Bindings {
   void dependencies() {
     Get.put(BottomNavController());
   }
-
-  static additionalBinding() {
-    Get.put(UploadController(), permanent: true);
-  }
 }

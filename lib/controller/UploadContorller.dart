@@ -12,11 +12,11 @@ import 'dart:io';
 import '../utils/data_util.dart';
 
 class UploadController extends GetxController {
+  var albums = <AssetPathEntity>[];
   RxList<AssetEntity> imageList = <AssetEntity>[].obs;
   RxString headerTitle = "".obs;
-  var albums = <AssetPathEntity>[];
   Rx<AssetEntity> selectedImage =
-      const AssetEntity(id: '', typeInt: 0, width: 0, height: 0).obs;
+      AssetEntity(id: '', typeInt: 0, width: 0, height: 0).obs;
   TextEditingController textEditingController = TextEditingController();
   File? filteredImage;
 
@@ -64,7 +64,7 @@ class UploadController extends GetxController {
     var fileName = basename(file!.path);
     var image = imageLib.decodeImage(file.readAsBytesSync());
     image = imageLib.copyResize(image!, width: 1000);
-    var imagefile = await Navigator.push(
+    var imageFile = await Navigator.push(
       Get.context!,
       MaterialPageRoute(
         builder: (context) => PhotoFilterSelector(
@@ -77,8 +77,8 @@ class UploadController extends GetxController {
         ),
       ),
     );
-    if (imagefile != null && imagefile.containsKey('image_filtered')) {
-      filteredImage = imagefile['image_filtered'];
+    if (imageFile != null && imageFile.containsKey('image_filtered')) {
+      filteredImage = imageFile['image_filtered'];
       Get.to(() => NewBoard());
     }
   }
