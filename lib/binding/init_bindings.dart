@@ -7,6 +7,7 @@ import '../controller/UploadContorller.dart';
 class InitBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(BottomNavController());
+    Get.put(BottomNavController(), permanent: true);
+    Get.put(UploadController(), permanent: true);
   }
 }
