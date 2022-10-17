@@ -12,6 +12,7 @@ import 'home.dart';
 class App extends GetView<BottomNavController> {
   const App({Key? key}) : super(key: key);
   @override
+  //깃 테스트
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: controller.willPopAction,
